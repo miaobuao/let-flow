@@ -5,11 +5,11 @@ import { Observable } from "rxjs";
 export const protobufPackage = "user";
 
 export interface UserById {
-  id: number;
+  id: string;
 }
 
 export interface User {
-  id: number;
+  id: string;
   name: string;
 }
 

@@ -32,7 +32,7 @@
         "production": {}
       }
     },
-    "dev": {
+    "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {

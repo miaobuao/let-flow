@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "node ./generator.js"
+    "serve": "node ./generator.js "
   },
   "devDependencies": {
     "chokidar": "^3.5.3",

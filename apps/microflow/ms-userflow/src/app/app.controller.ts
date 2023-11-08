@@ -1,13 +1,26 @@
 import { Controller, Get } from '@nestjs/common';
 
 import { AppService } from './app.service';
+import {
+  User,
+  UserById,
+  UserServiceController,
+  UserServiceControllerMethods,
+} from '@let-flow/microflow';
+import { Observable } from 'rxjs';
+import { BcryptService } from '../common/crypto/bcrypt/bcrypt.service';
 
 @Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getData() {
-    return this.appService.getData();
+@UserServiceControllerMethods()
+export class AppController implements UserServiceController {
+  constructor(
+    private readonly appService: AppService,
+    private readonly crypto: BcryptService,
+  ) {}
+  findOne(request: UserById): User | Promise<User> | Observable<User> {
+    return {
+      id: request.id,
+      name: 'rose',
+    };
   }
 }

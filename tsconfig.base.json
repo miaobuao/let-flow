@@ -16,7 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@let-flow/airflow": ["packages/@let-flow/airflow/index.ts"],
-      "@let-flow/microflow": ["packages/@let-flow/microflow/src/index.ts"]
+      "@let-flow/microflow": ["packages/@let-flow/microflow/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,16 +1,20 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { BcryptService } from '../../common/crypto/bcrypt/bcrypt.service';
+import { BcryptService } from '../../../../microflow/ms-userflow/src/common/crypto/bcrypt/bcrypt.service';
 
 import { UserRegisterForm } from './user.dto';
+import { UserService } from './user.service';
 
 @ApiTags('user')
 @Controller('user')
 export class UserController {
-  constructor(private bcrypt: BcryptService) {}
+  constructor(private userSerice: UserService) {}
 
   @Post('register')
-  async register(@Body() form: UserRegisterForm) {
-    const hashedPwd = await this.bcrypt.encrypt(form.password);
+  async register(@Body() form: UserRegisterForm) {}
+
+  @Get()
+  getUser() {
+    return this.userSerice.getUser();
   }
 }

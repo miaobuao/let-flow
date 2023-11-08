@@ -1,5 +1,5 @@
 {
-  "name": "apps/microflow/ms-userflow",
+  "name": "microflow/ms-userflow",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/microflow/ms-userflow/src",
   "projectType": "application",
@@ -27,14 +27,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "apps/microflow/ms-userflow:build"
+        "buildTarget": "microflow/ms-userflow:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "apps/microflow/ms-userflow:build:development"
+          "buildTarget": "microflow/ms-userflow:build:development"
         },
         "production": {
-          "buildTarget": "apps/microflow/ms-userflow:build:production"
+          "buildTarget": "microflow/ms-userflow:build:production"
         }
       }
     },
