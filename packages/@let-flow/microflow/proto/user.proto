@@ -3,14 +3,28 @@ syntax = "proto3";
 package user;
 
 service UserService {
-  rpc FindOne (UserById) returns (User) {}
+  rpc Register(UserRegisterRequest) returns (User) {}
+  rpc Authenticate(UserAuthenticateRequest) returns (User) {}
+  rpc FindById(FindUserByIdRequest) returns (User) {}
+  rpc FindByEmail(FindUserByEmailRequest) returns (User) {}
 }
 
-message UserById {
-  string id = 1;
+message UserRegisterRequest {
+  string email = 1;
+  string username = 2;
+  string password = 3;
+}
+
+message UserAuthenticateRequest {
+  string email = 1;
+  string password = 2;
 }
 
 message User {
   string id = 1;
-  string name = 2;
+  string email = 2;
+  string username = 3;
 }
+
+message FindUserByIdRequest { string id = 1; }
+message FindUserByEmailRequest { string email = 1; }

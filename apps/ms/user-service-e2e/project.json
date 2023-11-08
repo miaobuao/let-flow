@@ -1,14 +1,14 @@
 {
-  "name": "apps/microflow/ms-userflow-e2e",
+  "name": "ms/user-service-e2e",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "implicitDependencies": ["apps/microflow/ms-userflow"],
+  "implicitDependencies": ["apps/ms/user-service"],
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{e2eProjectRoot}"],
       "options": {
-        "jestConfig": "apps/microflow/ms-userflow-e2e/jest.config.ts",
+        "jestConfig": "apps/ms/user-service-e2e/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -16,7 +16,7 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/microflow/ms-userflow-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["apps/ms/user-service-e2e/**/*.{js,ts}"]
       }
     }
   }

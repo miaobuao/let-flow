@@ -1,20 +1,30 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Logger,
+  UseInterceptors,
+} from '@nestjs/common';
+import { instanceToPlain } from 'class-transformer';
 import { ApiTags } from '@nestjs/swagger';
-import { BcryptService } from '../../../../microflow/ms-userflow/src/common/crypto/bcrypt/bcrypt.service';
 
 import { UserRegisterForm } from './user.dto';
 import { UserService } from './user.service';
+import { GrpcToHttpInterceptor } from 'nestjs-grpc-exceptions';
 
 @ApiTags('user')
 @Controller('user')
 export class UserController {
-  constructor(private userSerice: UserService) {}
+  constructor(private userService: UserService) {}
 
   @Post('register')
-  async register(@Body() form: UserRegisterForm) {}
-
-  @Get()
-  getUser() {
-    return this.userSerice.getUser();
+  @UseInterceptors(GrpcToHttpInterceptor)
+  async register(@Body() form: UserRegisterForm) {
+    return this.userService.register({
+      username: form.username,
+      email: form.email,
+      password: form.password,
+    });
   }
 }

@@ -5,6 +5,10 @@ const { exec } = require('child_process');
 
 const MODEL_PATH = join(__dirname, 'model');
 const PROTO_PATH = join(__dirname, 'proto');
+const PROTO_PLUGIN_PATH = join(
+  __dirname,
+  '../../../node_modules/.bin/protoc-gen-ts_proto',
+);
 
 async function main() {
   if (!fs.existsSync(MODEL_PATH)) {
@@ -21,7 +25,7 @@ function parse(path) {
   exec(
     `
   protoc  \
-    --plugin=./node_modules/.bin/protoc-gen-ts_proto \
+    --plugin=${PROTO_PLUGIN_PATH} \
     --ts_proto_out=${MODEL_PATH}  \
     --ts_proto_opt=nestJs=true \
     --proto_path=${dirname(path)} \

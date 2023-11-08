@@ -1,7 +1,7 @@
 {
-  "name": "microflow/ms-userflow",
+  "name": "ms/user-service",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/microflow/ms-userflow/src",
+  "sourceRoot": "apps/ms/user-service/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -11,12 +11,12 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/apps/microflow/ms-userflow",
-        "main": "apps/microflow/ms-userflow/src/main.ts",
-        "tsConfig": "apps/microflow/ms-userflow/tsconfig.app.json",
-        "assets": ["apps/microflow/ms-userflow/src/assets"],
+        "outputPath": "dist/ms/user-service",
+        "main": "apps/ms/user-service/src/main.ts",
+        "tsConfig": "apps/ms/user-service/tsconfig.app.json",
+        "assets": ["apps/ms/user-service/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/microflow/ms-userflow/webpack.config.js"
+        "webpackConfig": "apps/ms/user-service/webpack.config.js"
       },
       "configurations": {
         "development": {},
@@ -27,14 +27,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "microflow/ms-userflow:build"
+        "buildTarget": "ms/user-service:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "microflow/ms-userflow:build:development"
+          "buildTarget": "ms/user-service:build:development"
         },
         "production": {
-          "buildTarget": "microflow/ms-userflow:build:production"
+          "buildTarget": "ms/user-service:build:production"
         }
       }
     },
@@ -42,14 +42,14 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/microflow/ms-userflow/**/*.ts"]
+        "lintFilePatterns": ["apps/ms/user-service/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/microflow/ms-userflow/jest.config.ts",
+        "jestConfig": "ms/user-service/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {

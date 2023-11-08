@@ -5,12 +5,14 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 
 export * from './model';
 
-let id = 50050;
+const ServiceUrlMap: Record<MicroServiceName, string> = {
+  user: '127.0.0.1:50050',
+};
 
 class MicroServiceConfig {
-  constructor(public readonly name: MicroServiceName, private port = id++) {}
+  constructor(public readonly name: MicroServiceName) {}
   get url() {
-    return `127.0.0.1:${this.port}`;
+    return ServiceUrlMap[this.name];
   }
 
   get path() {

@@ -1,5 +1,10 @@
 import { Injectable, OnModuleInit, Inject } from '@nestjs/common';
-import { MicroServices, UserServiceClient } from '@let-flow/microflow';
+import {
+  MicroServices,
+  User,
+  UserRegisterRequest,
+  UserServiceClient,
+} from '@let-flow/microflow';
 import { ClientGrpc } from '@nestjs/microservices';
 
 const service = MicroServices.user;
@@ -16,7 +21,7 @@ export class UserService implements OnModuleInit {
     );
   }
 
-  getUser() {
-    return this.userService.findOne({ id: '12' });
+  register(request: UserRegisterRequest) {
+    return this.userService.register(request);
   }
 }

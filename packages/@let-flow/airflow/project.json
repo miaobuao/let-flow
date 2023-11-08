@@ -1,3 +1,4 @@
 {
-  "name": "@let-flow/airflow"
+  "name": "@let-flow/airflow",
+  "implicitDependencies": ["airflow"]
 }
