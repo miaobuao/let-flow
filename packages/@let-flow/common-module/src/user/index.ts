@@ -1,11 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { MicroServices } from '@let-flow/microflow';
-import {
-  UserAuthenticationService,
-  UserFinderService,
-  UserManagerService,
-} from './service';
+import { UserRpcService } from './service';
 
 const userService = MicroServices.user;
 @Module({
@@ -22,8 +18,8 @@ const userService = MicroServices.user;
       },
     ]),
   ],
-  exports: [UserAuthenticationService, UserManagerService, UserFinderService],
-  providers: [UserAuthenticationService, UserManagerService, UserFinderService],
+  exports: [UserRpcService],
+  providers: [UserRpcService],
 })
 export class UserRpcModule {}
 

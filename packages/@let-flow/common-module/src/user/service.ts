@@ -11,49 +11,23 @@ import { ClientGrpc } from '@nestjs/microservices';
 const service = MicroServices.user;
 
 @Injectable()
-export class UserAuthenticationService implements OnModuleInit {
+export class UserRpcService implements OnModuleInit {
   private userService: UserServiceClient;
 
   constructor(@Inject(service.name) private client: ClientGrpc) {}
 
   onModuleInit() {
     this.userService = this.client.getService<UserServiceClient>(
-      service.serviceName,
+      service.serviceName
     );
   }
 
   authenticate(request: UserAuthenticateMessage) {
     return this.userService.authenticate(request);
   }
-}
-
-@Injectable()
-export class UserManagerService implements OnModuleInit {
-  private userService: UserServiceClient;
-
-  constructor(@Inject(service.name) private client: ClientGrpc) {}
-
-  onModuleInit() {
-    this.userService = this.client.getService<UserServiceClient>(
-      service.serviceName,
-    );
-  }
 
   register(request: UserRegisterMessage) {
     return this.userService.register(request);
-  }
-}
-
-@Injectable()
-export class UserFinderService implements OnModuleInit {
-  private userService: UserServiceClient;
-
-  constructor(@Inject(service.name) private client: ClientGrpc) {}
-
-  onModuleInit() {
-    this.userService = this.client.getService<UserServiceClient>(
-      service.serviceName,
-    );
   }
 
   findById(request: FindUserByIdMessage) {

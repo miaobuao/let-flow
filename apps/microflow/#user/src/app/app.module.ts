@@ -8,6 +8,11 @@ import { CryptoModule } from '@let-flow/common-module';
 @Module({
   imports: [CryptoModule],
   controllers: [AppController],
-  providers: [],
+  providers: [
+    {
+      provide: APP_FILTER,
+      useClass: GrpcServerExceptionFilter,
+    },
+  ],
 })
 export class AppModule {}
