@@ -162,6 +162,41 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        authenticate: async (userRegisterForm: UserRegisterForm, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'userRegisterForm' is not null or undefined
+            assertParamExists('authenticate', 'userRegisterForm', userRegisterForm)
+            const localVarPath = `/api/v1/user/authenticate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(userRegisterForm, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {UserRegisterForm} userRegisterForm 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         register: async (userRegisterForm: UserRegisterForm, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'userRegisterForm' is not null or undefined
             assertParamExists('register', 'userRegisterForm', userRegisterForm)
@@ -207,6 +242,16 @@ export const UserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        async authenticate(userRegisterForm: UserRegisterForm, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.authenticate(userRegisterForm, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {UserRegisterForm} userRegisterForm 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         async register(userRegisterForm: UserRegisterForm, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<object>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.register(userRegisterForm, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
@@ -227,6 +272,15 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
+        authenticate(userRegisterForm: UserRegisterForm, options?: any): AxiosPromise<object> {
+            return localVarFp.authenticate(userRegisterForm, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {UserRegisterForm} userRegisterForm 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
         register(userRegisterForm: UserRegisterForm, options?: any): AxiosPromise<object> {
             return localVarFp.register(userRegisterForm, options).then((request) => request(axios, basePath));
         },
@@ -240,6 +294,17 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
  * @extends {BaseAPI}
  */
 export class UserApi extends BaseAPI {
+    /**
+     * 
+     * @param {UserRegisterForm} userRegisterForm 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public authenticate(userRegisterForm: UserRegisterForm, options?: AxiosRequestConfig) {
+        return UserApiFp(this.configuration).authenticate(userRegisterForm, options).then((request) => request(this.axios, this.basePath));
+    }
+
     /**
      * 
      * @param {UserRegisterForm} userRegisterForm 

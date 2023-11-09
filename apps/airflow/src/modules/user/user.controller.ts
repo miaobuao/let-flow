@@ -10,20 +10,35 @@ import { instanceToPlain } from 'class-transformer';
 import { ApiTags } from '@nestjs/swagger';
 
 import { UserRegisterForm } from './user.dto';
-import { UserService } from './user.service';
+import {
+  UserAuthenticationService,
+  UserManagerService,
+} from '@let-flow/common-module';
 import { GrpcToHttpInterceptor } from 'nestjs-grpc-exceptions';
 
 @ApiTags('user')
 @Controller('user')
 export class UserController {
-  constructor(private userService: UserService) {}
+  constructor(
+    private readonly manager: UserManagerService,
+    private readonly auth: UserAuthenticationService,
+  ) {}
 
   @Post('register')
   @UseInterceptors(GrpcToHttpInterceptor)
   async register(@Body() form: UserRegisterForm) {
-    return this.userService.register({
+    return this.manager.register({
       username: form.username,
       email: form.email,
+      password: form.password,
+    });
+  }
+
+  @Post('authenticate')
+  @UseInterceptors(GrpcToHttpInterceptor)
+  async authenticate(@Body() form: UserRegisterForm) {
+    return this.auth.authenticate({
+      username: form.username,
       password: form.password,
     });
   }

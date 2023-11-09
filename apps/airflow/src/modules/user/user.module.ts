@@ -1,25 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
 import { UserController } from './user.controller';
-import { MicroServices } from '@let-flow/microflow';
-import { UserService } from './user.service';
+import { UserRpcModule } from '@let-flow/common-module';
 
-const userService = MicroServices.user;
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: userService.name,
-        transport: Transport.GRPC,
-        options: {
-          package: userService.name,
-          protoPath: userService.path,
-          url: userService.url,
-        },
-      },
-    ]),
-  ],
+  imports: [UserRpcModule],
   controllers: [UserController],
-  providers: [UserService],
+  providers: [],
 })
 export class UserModule {}

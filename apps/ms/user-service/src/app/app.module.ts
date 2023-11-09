@@ -1,18 +1,13 @@
 import { Module } from '@nestjs/common';
 import { GrpcServerExceptionFilter } from 'nestjs-grpc-exceptions';
+import { APP_FILTER } from '@nestjs/core';
 
 import { AppController } from './app.controller';
-import { CryptoModule } from '../common/crypto/crypto.module';
-import { APP_FILTER } from '@nestjs/core';
+import { CryptoModule } from '@let-flow/common-module';
 
 @Module({
   imports: [CryptoModule],
   controllers: [AppController],
-  providers: [
-    {
-      provide: APP_FILTER,
-      useClass: GrpcServerExceptionFilter,
-    },
-  ],
+  providers: [],
 })
 export class AppModule {}
