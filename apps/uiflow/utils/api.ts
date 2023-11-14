@@ -1,7 +1,7 @@
 import { Configuration, DefaultApi, UserApi } from '@let-flow/airflow';
 
 const config = new Configuration({
-  basePath: 'http://localhost:3000',
+  basePath: '',
 });
 
 const defaultApi = new DefaultApi(config);
