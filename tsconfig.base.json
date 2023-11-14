@@ -19,7 +19,8 @@
       "@let-flow/common-module": [
         "packages/@let-flow/common-module/src/index.ts"
       ],
-      "@let-flow/microflow": ["packages/@let-flow/microflow/index.ts"]
+      "@let-flow/microflow": ["packages/@let-flow/microflow/index.ts"],
+      "@let-flow/k8s": ["packages/@let-flow/k8s/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,14 +1,13 @@
 {
   "name": "@let-flow/source",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "",
   "scripts": {
-    "start:cluster": "k8s/start.js",
-    "reboot:cluster": "k8s/start.js --rm",
-    "test:cluster": "k8s/test.py",
-    "dev": "npm run test:cluster && nx run-many -t serve"
+    "dev": "npm run test:k8s && nx run-many -t serve",
+    "start:k8s": "nx start @let-flow/k8s",
+    "reboot:k8s": "nx reboot @let-flow/k8s",
+    "test:k8s": "nx test @let-flow/k8s"
   },
-  "private": true,
   "dependencies": {
     "@fastify/static": "^6.12.0",
     "@grpc/grpc-js": "^1.9.9",

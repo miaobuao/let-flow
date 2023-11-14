@@ -1,0 +1,8 @@
+{
+  "name": "@let-flow/k8s",
+  "scripts": {
+    "start": "./start.js",
+    "reboot": "./start.js --rm",
+    "test": "./test.py"
+  }
+}
