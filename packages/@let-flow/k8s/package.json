@@ -3,6 +3,6 @@
   "scripts": {
     "start": "./start.js",
     "reboot": "./start.js --rm",
-    "test": "./test.py"
+    "test": "CRYPTOGRAPHY_OPENSSL_NO_LEGACY=true ./test.py"
   }
 }

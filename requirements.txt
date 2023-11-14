@@ -2,3 +2,4 @@ pymongo
 redis
 psycopg2-binary
 meo
+json5
