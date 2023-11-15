@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    deploy:
+      restart_policy:
+        condition: on-failure
+  postgresql:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    volumes:
+      - ./.db/postgres:/var/lib/postgresql/data
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    ports:
+      - 27017:27017
+    volumes:
+      - ./.db/mongo:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin

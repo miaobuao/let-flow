@@ -1,10 +1,10 @@
 {
   "name": "@let-flow/k8s",
   "scripts": {
-    "install": "./install.js",
-    "reboot": "./start.js --rm",
-    "test": "CRYPTOGRAPHY_OPENSSL_NO_LEGACY=true ./test.py",
-    "add:port": "./k3d.port.add",
-    "start:k3d": "./k3d.start"
+    "install": "./bin/install",
+    "reboot": "./bin/install --rm",
+    "test": "CRYPTOGRAPHY_OPENSSL_NO_LEGACY=true ./bin/test",
+    "add:port": "./bin/k3d.port.add",
+    "start:k3d": "./bin/k3d.start"
   }
 }

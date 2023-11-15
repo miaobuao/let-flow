@@ -6,11 +6,11 @@ const execSync = require('child_process').execSync;
 const args = require('minimist')(process.argv.slice(2));
 const rm = args['rm'];
 
-const config = require('./config.json').service;
+const config = require('../config.json').service;
 
 install(
   'traefik',
-  './traefik',
+  '../traefik',
   config.traefik.ns,
   `
     --set ports.redis.port=6379
@@ -19,7 +19,6 @@ install(
     --set ports.redis.protocol=TCP
 `
 );
-let waiting = true;
 const traefikTimer = setInterval(() => {
   const data = JSON.parse(
     execSync(`
@@ -75,7 +74,7 @@ function startService() {
 
   install(
     'redis',
-    './redis',
+    '../redis',
     config.redis.ns,
     `
       --set auth.enabled=false
@@ -83,7 +82,7 @@ function startService() {
   );
   install(
     'mongodb',
-    './mongodb',
+    '../mongodb',
     config.mongodb.ns,
     `
       --set auth.enabled=false
@@ -91,7 +90,7 @@ function startService() {
   );
   install(
     'postgresql',
-    './postgresql',
+    '../postgresql',
     config.postgresql.ns,
     `
       --set global.postgresql.auth.postgresPassword=postgres
