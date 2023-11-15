@@ -1,0 +1,23 @@
+#!/usr/bin/env node
+const { exec } = require('child_process');
+const config = require('./config.json');
+const service = config.service;
+const portsArgs = Object.keys(service)
+  .map((k) => {
+    return service[k].port;
+  })
+  .map((port) => {
+    return `-p "${port}:${port}@loadbalancer"`;
+  });
+
+/**
+  k3d cluster create dash \
+  -p 5432:5432@loadbalancer ...
+ */
+const cmd = exec(`
+  k3d cluster create ${config.cluster.name} \
+    ${portsArgs.join(' ')}
+`);
+
+cmd.stdout.pipe(process.stdout);
+cmd.stderr.pipe(process.stderr);

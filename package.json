@@ -4,9 +4,11 @@
   "license": "",
   "scripts": {
     "dev": "npm run test:k8s && nx run-many -t serve",
-    "start:k8s": "nx start @let-flow/k8s",
+    "start:k8s": "nx install @let-flow/k8s",
     "reboot:k8s": "nx reboot @let-flow/k8s",
-    "test:k8s": "nx test @let-flow/k8s"
+    "test:k8s": "nx test @let-flow/k8s",
+    "add:port": "nx add:port @let-flow/k8s",
+    "start:k3d": "nx start:k3d @let-flow/k8s"
   },
   "dependencies": {
     "@fastify/static": "^6.12.0",

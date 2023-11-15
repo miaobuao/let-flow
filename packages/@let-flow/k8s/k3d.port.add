@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+
+const args = process.argv
+  .slice(2)
+  .map((arg) => arg.trim())
+  .map((port) => {
+    return `--port-add ${port}:${port}@loadbalancer`;
+  });
+const { exec } = require('child_process');
+const config = require('./config.json');
+
+const child = exec(`k3d cluster edit ${config.cluster.name} ${args.join(' ')}`);
+child.stdout.pipe(process.stdout);
+child.stderr.pipe(process.stderr);

@@ -1,17 +1,25 @@
 {
-  "redis": {
-    "host": "localhost",
-    "port": 6379
+  "cluster": {
+    "name": "letflow"
   },
-  "postgresql": {
-    "host": "localhost",
-    "port": 5432,
-    "user": "postgres",
-    "password": "postgres",
-    "database": "postgres"
-  },
-  "mongodb": {
-    "host": "localhost",
-    "port": 27017
+  "service": {
+    "redis": {
+      "ns": "letflow",
+      "host": "localhost",
+      "port": 6379
+    },
+    "postgresql": {
+      "ns": "letflow",
+      "host": "localhost",
+      "port": 5432,
+      "user": "postgres",
+      "password": "postgres",
+      "database": "postgres"
+    },
+    "mongodb": {
+      "ns": "letflow",
+      "host": "localhost",
+      "port": 27017
+    }
   }
 }

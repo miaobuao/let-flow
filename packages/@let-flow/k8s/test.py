@@ -11,8 +11,14 @@ config = meo.load_json(
         "config.json",
     )
 )
+service = config['service']
 
-r = redis.StrictRedis(**config["redis"])
+
+def pick(obj, *keys):
+    return {k: obj[k] for k in keys if k in obj}
+
+
+r = redis.StrictRedis(**pick(service['redis'], 'host', 'port'))
 r.set("test", 1212, ex=10)
 print("✨ Redis is ready ✨")
 
