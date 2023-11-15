@@ -123,7 +123,7 @@ architecture: replication
 auth:
   ## @param auth.enabled Enable password authentication
   ##
-  enabled: false
+  enabled: true
   ## @param auth.sentinel Enable password authentication on sentinels too
   ##
   sentinel: true
@@ -503,7 +503,7 @@ master:
   service:
     ## @param master.service.type Redis&reg; master service type
     ##
-    type: LoadBalancer
+    type: ClusterIP
     ## @param master.service.ports.redis Redis&reg; master service port
     ##
     ports:

@@ -50,9 +50,7 @@ function install(name, path, ns, flags) {
   }
   return execSync(
     `helm upgrade --install ${name} ${join(__dirname, path)} \
-        --create-namespace --namespace ${'traefik-v2' ?? ns ?? name} ${
-      flags ?? ''
-    }`,
+        --create-namespace --namespace ${ns ?? name} ${flags ?? ''}`,
     { stdio: 'inherit' }
   );
 }

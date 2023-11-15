@@ -160,7 +160,7 @@ auth:
   ## @param auth.enabled Enable authentication
   ## ref: https://docs.mongodb.com/manual/tutorial/enable-authentication/
   ##
-  enabled: false
+  enabled: true
   ## @param auth.rootUser MongoDB(&reg;) root user
   ##
   rootUser: root
@@ -729,7 +729,7 @@ service:
   nameOverride: ""
   ## @param service.type Kubernetes Service type (only for standalone architecture)
   ##
-  type: LoadBalancer
+  type: ClusterIP
   ## @param service.portName MongoDB(&reg;) service port name (only for standalone architecture)
   ##
   portName: mongodb
@@ -1217,7 +1217,7 @@ backup:
       ## @param backup.cronjob.storage.annotations PVC annotations
       ##
       annotations: {}
-      ## @param backup.cronjob.storage.mountPath Path to mount the volume at
+      ## @param backup.cronjob.storage.mountPath Path to mount the volume at 
       ##
       mountPath: /backup/mongodb
       ## @param backup.cronjob.storage.subPath Subdirectory of the volume to mount at

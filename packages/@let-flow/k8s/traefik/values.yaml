@@ -175,15 +175,6 @@ ingressRoute:
     middlewares: []
     # -- TLS options (e.g. secret containing certificate)
     tls: {}
-  redis:
-    enabled: true
-    matchRule: HostSNI(`*`)
-    entryPoints: ["redis"]
-    annotations: {}
-    labels: {}
-    middlewares: []
-    tls: {}
-
 
 updateStrategy:
   # -- Customize updateStrategy: RollingUpdate or OnDelete
@@ -713,14 +704,6 @@ ports:
     exposedPort: 9100
     # -- The port protocol (TCP/UDP)
     protocol: TCP
-
-  redis:
-    enabled: true
-    port: 6379
-    exposedPort: 6379
-    protocol: TCP
-    expose: true
-
 
 # -- TLS Options are created as TLSOption CRDs
 # https://doc.traefik.io/traefik/https/tls/#tls-options
