@@ -16,6 +16,7 @@ class Service(BaseModel):
 
 
 class Config(BaseModel):
+    ns: str
     redis: Service
     mongodb: Service
     postgresql: Service
@@ -27,10 +28,6 @@ config = Config(**meo.load_json(
         "../config.json",
     )
 )['development'])
-
-
-def pick(obj, *keys):
-    return {k: obj[k] for k in keys if k in obj}
 
 
 r = redis.StrictRedis(

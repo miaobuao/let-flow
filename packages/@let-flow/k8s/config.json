@@ -1,5 +1,6 @@
 {
   "development": {
+    "ns": "let-flow",
     "redis": {
       "host": "localhost",
       "port": 6379
@@ -8,8 +9,7 @@
       "host": "localhost",
       "port": 5432,
       "user": "root",
-      "password": "root",
-      "database": "postgres"
+      "password": "root"
     },
     "mongodb": {
       "host": "localhost",
@@ -19,21 +19,18 @@
     }
   },
   "production": {
+    "ns": "let-flow",
     "redis": {
-      "ns": "letflow",
       "host": "localhost",
       "port": 6379
     },
     "postgresql": {
-      "ns": "letflow",
       "host": "localhost",
       "port": 5432,
       "user": "postgres",
-      "password": "postgres",
-      "database": "postgres"
+      "password": "postgres"
     },
     "mongodb": {
-      "ns": "letflow",
       "host": "localhost",
       "port": 27017
     }

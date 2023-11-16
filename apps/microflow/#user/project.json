@@ -1,5 +1,5 @@
 {
-  "name": "microflow/#user",
+  "name": "microflow#user",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/microflow/#user/src",
   "projectType": "application",
@@ -27,14 +27,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "microflow/#user:build"
+        "buildTarget": "microflow#user:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "microflow/#user:build:development"
+          "buildTarget": "microflow#user:build:development"
         },
         "production": {
-          "buildTarget": "microflow/#user:build:production"
+          "buildTarget": "microflow#user:build:production"
         }
       }
     },
