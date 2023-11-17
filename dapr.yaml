@@ -2,9 +2,11 @@ version: 1
 common:
   resourcesPath: ./dapr/components/
 apps:
-  - appID: microflow#user
-    appDirPath: .
-    command: ["nx", "serve", "microflow#user"]
+  - appID: ms-user
+    appDirPath: ./services/user/
+    appPort: 50001
+    appProtocol: grpc
+    command: ["nx", "serve", "services/user"]
   # - appID: checkout-sdk
   #   appDirPath: ./checkout/
   #   command: ["npm", "run", "start"]

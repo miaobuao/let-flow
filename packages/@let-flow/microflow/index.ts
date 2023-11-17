@@ -15,14 +15,6 @@ class MicroServiceConfig {
     return ServiceUrlMap[this.name];
   }
 
-  get path() {
-    return join(
-      process.cwd(),
-      'packages/@let-flow/microflow/proto',
-      `${this.name}.proto`,
-    );
-  }
-
   get serviceName() {
     let name = this.name[0].toUpperCase() + this.name.slice(1);
     return `${name}Service`;
@@ -35,7 +27,7 @@ class MicroServiceConfig {
         transport: Transport.GRPC,
         options: {
           package: this.name,
-          protoPath: this.path,
+          protoPath: process.env.PROTOBUF_PATH ?? '',
         },
       },
     ]);

@@ -7,7 +7,7 @@ const MODEL_PATH = join(__dirname, 'model');
 const PROTO_PATH = join(__dirname, 'proto');
 const PROTO_PLUGIN_PATH = join(
   __dirname,
-  '../../../node_modules/.bin/protoc-gen-ts_proto',
+  '../../../node_modules/.bin/protoc-gen-ts_proto'
 );
 
 async function main() {
@@ -40,7 +40,7 @@ function parse(path) {
           stderr,
           stdout,
         });
-    },
+    }
   );
 }
 

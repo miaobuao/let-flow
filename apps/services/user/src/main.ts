@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
 import { MicroServices } from '@let-flow/microflow';
-
+import user from '@let-flow/proto/user.proto';
 const service = MicroServices.user;
 
 async function bootstrap() {
@@ -13,7 +13,7 @@ async function bootstrap() {
       transport: Transport.GRPC,
       options: {
         package: service.name,
-        protoPath: service.path,
+        protoPath: './assets/user.proto',
         url: service.url,
       },
     }

@@ -1,7 +1,7 @@
 {
-  "name": "microflow#user",
+  "name": "services/user",
   "$schema": "../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/microflow/#user/src",
+  "sourceRoot": "apps/services/user/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -11,12 +11,12 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/microflow/#user",
-        "main": "apps/microflow/#user/src/main.ts",
-        "tsConfig": "apps/microflow/#user/tsconfig.app.json",
-        "assets": [],
+        "outputPath": "dist/apps/services/user",
+        "main": "apps/services/user/src/main.ts",
+        "tsConfig": "apps/services/user/tsconfig.app.json",
+        "assets": ["apps/services/user/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/microflow/#user/webpack.config.js"
+        "webpackConfig": "apps/services/user/webpack.config.js"
       },
       "configurations": {
         "development": {},
@@ -27,14 +27,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "microflow#user:build"
+        "buildTarget": "services/user:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "microflow#user:build:development"
+          "buildTarget": "services/user:build:development"
         },
         "production": {
-          "buildTarget": "microflow#user:build:production"
+          "buildTarget": "services/user:build:production"
         }
       }
     },
@@ -42,14 +42,14 @@
       "executor": "@nx/eslint:lint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/microflow/#user/**/*.ts"]
+        "lintFilePatterns": ["apps/services/user/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/microflow/#user/jest.config.ts",
+        "jestConfig": "apps/services/user/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
