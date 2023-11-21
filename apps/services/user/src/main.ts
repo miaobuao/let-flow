@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
 import { MicroServices } from '@let-flow/microflow';
-import user from '@let-flow/proto/user.proto';
+
 const service = MicroServices.user;
 
 async function bootstrap() {

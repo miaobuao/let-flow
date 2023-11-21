@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit, Inject } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   MicroServices,
   UserRegisterMessage,
@@ -7,20 +7,12 @@ import {
   FindUserByIdMessage,
   FindUserByEmailMessage,
 } from '@let-flow/microflow';
-import { ClientGrpc } from '@nestjs/microservices';
-const service = MicroServices.user;
-
+import { DaprService } from '../dapr';
 @Injectable()
-export class UserRpcService implements OnModuleInit {
+export class UserService {
   private userService: UserServiceClient;
 
-  constructor(@Inject(service.name) private client: ClientGrpc) {}
-
-  onModuleInit() {
-    this.userService = this.client.getService<UserServiceClient>(
-      service.serviceName
-    );
-  }
+  constructor(private readonly dapr: DaprService) {}
 
   authenticate(request: UserAuthenticateMessage) {
     return this.userService.authenticate(request);

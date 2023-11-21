@@ -3,7 +3,7 @@ common:
   resourcesPath: ./dapr/components/
 apps:
   - appID: ms-user
-    appDirPath: ./services/user/
+    appDirPath: ./apps/services/user/
     appPort: 50001
     appProtocol: grpc
     command: ["nx", "serve", "services/user"]

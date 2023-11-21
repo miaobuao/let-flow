@@ -1,26 +1,12 @@
 import { Module } from '@nestjs/common';
-import { ClientsModule, Transport } from '@nestjs/microservices';
-import { MicroServices } from '@let-flow/microflow';
-import { UserRpcService } from './service';
+import { UserService } from './service';
+import { DaprModule } from '..';
 
-const userService = MicroServices.user;
+export { UserService };
+
 @Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: userService.name,
-        transport: Transport.GRPC,
-        options: {
-          package: userService.name,
-          protoPath: userService.path,
-          url: userService.url,
-        },
-      },
-    ]),
-  ],
-  exports: [UserRpcService],
-  providers: [UserRpcService],
+  imports: [DaprModule],
+  exports: [],
+  providers: [],
 })
 export class UserRpcModule {}
-
-export * from './service';
