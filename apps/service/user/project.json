@@ -1,0 +1,42 @@
+{
+  "name": "service/user",
+  "sourceRoot": "apps/service/user",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/service/user",
+        "main": "apps/service/user/src/main.ts",
+        "tsConfig": "apps/service/user/tsconfig.app.json",
+        "assets": [],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/service/user/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "service/user:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "service/user:build:development"
+        },
+        "production": {
+          "buildTarget": "service/user:build:production"
+        }
+      }
+    }
+  },
+  "tags": []
+}
