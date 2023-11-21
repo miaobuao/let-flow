@@ -1,0 +1,6 @@
+{
+  "name": "@let-flow/service",
+  "sourceRoot": "apps/service",
+  "projectType": "application",
+  "tags": []
+}

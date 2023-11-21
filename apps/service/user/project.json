@@ -6,16 +6,16 @@
     "build": {
       "executor": "@nx/webpack:webpack",
       "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
+      "defaultConfiguration": "development",
       "options": {
         "target": "node",
         "compiler": "tsc",
         "outputPath": "dist/apps/service/user",
-        "main": "apps/service/user/src/main.ts",
-        "tsConfig": "apps/service/user/tsconfig.app.json",
+        "main": "apps/service/user/index.ts",
+        "tsConfig": "apps/service/tsconfig.app.json",
         "assets": [],
         "isolatedConfig": true,
-        "webpackConfig": "apps/service/user/webpack.config.js"
+        "webpackConfig": "apps/service/webpack.config.js"
       },
       "configurations": {
         "development": {},
