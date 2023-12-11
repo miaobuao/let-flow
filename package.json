@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "",
   "scripts": {
-    "dev": "npm run test:k8s && nx run-many -t serve",
+    "dev": "nx run-many -t start",
     "start:k8s": "nx install @let-flow/k8s",
     "reboot:k8s": "nx reboot @let-flow/k8s",
     "test:k8s": "nx test @let-flow/k8s",
@@ -38,6 +38,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@monodon/rust": "^1.3.2",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",

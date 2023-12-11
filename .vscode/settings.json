@@ -1,3 +1,7 @@
 {
-    "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "rust-analyzer.linkedProjects": [
+    "./apps/airflow/Cargo.toml",
+    "./apps/airflow/Cargo.toml"
+  ]
 }

@@ -1,70 +1,49 @@
 {
   "name": "airflow",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/airflow/src",
   "projectType": "application",
+  "sourceRoot": "apps/airflow/src",
   "targets": {
     "build": {
-      "executor": "@nx/webpack:webpack",
-      "outputs": ["{options.outputPath}"],
-      "defaultConfiguration": "production",
+      "executor": "@monodon/rust:build",
+      "outputs": ["{options.target-dir}"],
       "options": {
-        "target": "node",
-        "compiler": "tsc",
-        "outputPath": "dist/apps/airflow",
-        "main": "apps/airflow/src/main.ts",
-        "tsConfig": "apps/airflow/tsconfig.app.json",
-        "assets": ["apps/airflow/src/assets"],
-        "isolatedConfig": true,
-        "webpackConfig": "apps/airflow/webpack.config.js",
-        "tsPlugins": [
-          {
-            "name": "@nestjs/swagger/plugin",
-            "options": {
-              "classValidatorShim": false,
-              "introspectComments": true
-            }
-          }
-        ]
+        "target-dir": "dist/target/airflow"
       },
       "configurations": {
-        "development": {},
-        "production": {}
+        "production": {
+          "release": true
+        }
       }
     },
-    "serve": {
-      "executor": "@nx/js:node",
-      "defaultConfiguration": "development",
+    "test": {
+      "executor": "@monodon/rust:test",
+      "outputs": ["{options.target-dir}"],
       "options": {
-        "buildTarget": "airflow:build"
+        "target-dir": "dist/target/airflow"
       },
       "configurations": {
-        "development": {
-          "buildTarget": "airflow:build:development"
-        },
         "production": {
-          "buildTarget": "airflow:build:production"
+          "release": true
         }
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint",
-      "outputs": ["{options.outputFile}"],
+      "executor": "@monodon/rust:lint",
+      "outputs": ["{options.target-dir}"],
       "options": {
-        "lintFilePatterns": ["apps/airflow/**/*.ts"]
+        "target-dir": "dist/target/airflow"
       }
     },
-    "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+    "start": {
+      "executor": "@monodon/rust:run",
+      "outputs": ["{options.target-dir}"],
       "options": {
-        "jestConfig": "apps/airflow/jest.config.ts",
-        "passWithNoTests": true
+        "target-dir": "dist/target/airflow"
       },
       "configurations": {
-        "ci": {
-          "ci": true,
-          "codeCoverage": true
+        "production": {
+          "release": true
         }
       }
     }
