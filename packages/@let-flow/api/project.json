@@ -1,0 +1,4 @@
+{
+  "name": "@let-flow/api",
+  "implicitDependencies": ["server"]
+}

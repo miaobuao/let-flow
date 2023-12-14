@@ -27,6 +27,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "server"
+version = "0.1.0"
+dependencies = [
+ "axum",
+ "env_logger",
+ "hyper",
+ "log",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tower",
+ "utoipa",
+ "utoipa-rapidoc",
+ "utoipa-redoc",
+ "utoipa-swagger-ui",
+]
+
+[[package]]
 name = "async-trait"
 version = "0.1.74"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -226,12 +244,6 @@ dependencies = [
  "redox_users",
  "windows-sys 0.48.0",
 ]
-
-[[package]]
-name = "dotenv"
-version = "0.15.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "77c90badedccf4105eca100756a0b1289e191f6fcbdadd3cee1d2f614f97da8f"
 
 [[package]]
 name = "env_logger"
@@ -906,25 +918,6 @@ dependencies = [
  "itoa",
  "ryu",
  "serde",
-]
-
-[[package]]
-name = "server"
-version = "0.1.0"
-dependencies = [
- "axum",
- "dotenv",
- "env_logger",
- "hyper",
- "log",
- "serde",
- "serde_json",
- "tokio",
- "tower",
- "utoipa",
- "utoipa-rapidoc",
- "utoipa-redoc",
- "utoipa-swagger-ui",
 ]
 
 [[package]]

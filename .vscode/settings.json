@@ -1,7 +1,9 @@
 {
-  "editor.formatOnSave": true,
   "rust-analyzer.linkedProjects": [
-    "./apps/airflow/Cargo.toml",
-    "./apps/airflow/Cargo.toml"
-  ]
+    "./apps/server/Cargo.toml",
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true,
+    "eslint.autoFixOnSave": true,
+  },
 }

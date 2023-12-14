@@ -2,11 +2,14 @@ version: 1
 common:
   resourcesPath: ./dapr/components/
 apps:
-  - appID: ms-user
+  - appID: dapr-user-service
     appDirPath: ./apps/services/user/
     appPort: 50001
     appProtocol: grpc
-    command: ["nx", "serve", "services/user"]
-  # - appID: checkout-sdk
-  #   appDirPath: ./checkout/
+    command: ["nx", "start", "services/user"]
+  - appID: api-server
+    appDirPath: ./apps/server/
+    appPort: 50002
+    appProtocol: grpc
+    command: ["nx", "start", "server"]
   #   command: ["npm", "run", "start"]

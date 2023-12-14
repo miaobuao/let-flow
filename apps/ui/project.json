@@ -1,0 +1,17 @@
+{
+  "name": "ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/ui/",
+  "tags": [
+    "scope:ui"
+  ],
+  "targets": {
+    "build": {
+      "outputs": [
+        "{projectRoot}/.output",
+        "{projectRoot}/.nuxt"
+      ]
+    }
+  }
+}

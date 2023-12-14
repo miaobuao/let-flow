@@ -1,7 +1,7 @@
 
 [workspace]
 resolver = '2'
-members = ['apps/airflow']
+members = ['apps/server']
 
 [profile.release]
 lto = true
