@@ -38,7 +38,9 @@ const VITE_CONFIG: NuxtConfig['vite'] = {
   server: {
     proxy: {
       '/api': {
-        target: process.env.API_SERVER,
+        target:
+          process.env.API_SERVER ??
+          `http://localhost:${process.env.API_PORT ?? 8080}`,
         changeOrigin: true,
         prependPath: true,
       },
@@ -60,6 +62,14 @@ const MODULES_CONFIG: NuxtConfig['modules'] = [
       );
     });
   },
+  [
+    '@nuxtjs/i18n',
+    {
+      i18n: {
+        vueI18n: './i18n.config.ts',
+      },
+    },
+  ],
   '@nuxtjs/eslint-module',
   '@unocss/nuxt',
   [

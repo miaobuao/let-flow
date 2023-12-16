@@ -12,13 +12,13 @@ module.exports = defineConfig({
     parser: '@typescript-eslint/parser',
     sourceType: 'module',
   },
+  plugins: ['vue', 'import', 'node', 'promise', 'unused-imports'],
   extends: [
     'plugin:vue/vue3-recommended',
     'prettier',
     'plugin:prettier/recommended',
     'plugin:promise/recommended',
   ],
-  plugins: ['vue', 'import', 'node', 'promise'],
   rules: {
     'vue/multi-word-component-names': 'off',
     'import/order': [
@@ -35,6 +35,17 @@ module.exports = defineConfig({
           order: 'asc',
           caseInsensitive: true,
         },
+      },
+    ],
+    'no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
       },
     ],
   },
