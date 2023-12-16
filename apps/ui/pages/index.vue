@@ -1,24 +1,22 @@
 <template>
-  <n-layout position="absolute">
-    <n-layout-header
-      class="header flex flex-col hfull justify-center px-[4px]"
-      bordered
-    >
-      <n-space justify="space-between">
-        <n-button>1</n-button>
-        <n-dropdown trigger="hover" :options="options" show-arrow>
-          <n-button :bordered="false" circle>
-            <n-icon size="20">
-              <settings-outline />
-            </n-icon>
-          </n-button>
-        </n-dropdown>
-      </n-space>
-    </n-layout-header>
-    <n-layout class="content" position="absolute" has-sider>
-      <n-layout-sider bordered :native-scrollbar="false"> </n-layout-sider>
-      <n-layout :native-scrollbar="false"> </n-layout>
-    </n-layout>
+  <n-layout-header
+    class="header flex flex-col hfull justify-center px-[4px]"
+    bordered
+  >
+    <n-space justify="space-between">
+      <div></div>
+      <n-dropdown trigger="hover" :options="options" show-arrow>
+        <n-button :bordered="false" circle>
+          <n-icon size="20">
+            <settings-outline />
+          </n-icon>
+        </n-button>
+      </n-dropdown>
+    </n-space>
+  </n-layout-header>
+  <n-layout class="content" position="absolute" has-sider>
+    <n-layout-sider bordered :native-scrollbar="false"> </n-layout-sider>
+    <n-layout :native-scrollbar="false"> </n-layout>
   </n-layout>
 </template>
 
