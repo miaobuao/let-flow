@@ -22,7 +22,7 @@ export interface GuiPreferences {
   language?: LanguageKind;
 }
 
-export interface LanguagePack {
+export interface UserLanguage {
   locale: NLocale;
   date: NDateLocale;
 }
