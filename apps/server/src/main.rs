@@ -53,7 +53,10 @@ async fn main() -> Result<(), Error> {
 
     let address = SocketAddr::from((
         Ipv4Addr::UNSPECIFIED,
-        dotenv::var("API_PORT").unwrap().parse::<u16>().unwrap(),
+        dotenv::var("API_PORT")
+            .unwrap()
+            .parse::<u16>()
+            .unwrap_or(8080),
     ));
     let listener = TcpListener::bind(&address).await?;
     axum::serve(listener, app.into_make_service()).await
