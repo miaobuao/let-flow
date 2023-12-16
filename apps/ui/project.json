@@ -7,11 +7,12 @@
     "scope:ui"
   ],
   "targets": {
-    "build": {
-      "outputs": [
-        "{projectRoot}/.output",
-        "{projectRoot}/.nuxt"
-      ]
+    "dev": {
+      "executor": "nx:run-script",
+      "defaultConfiguration": "development",
+      "options": {
+        "script": "serve"
+      }
     }
   }
 }

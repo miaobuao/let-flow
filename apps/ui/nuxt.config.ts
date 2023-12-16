@@ -38,7 +38,7 @@ const VITE_CONFIG: NuxtConfig['vite'] = {
   server: {
     proxy: {
       '/api': {
-        target: process.env.API_SERVER ?? 'http://localhost:8080',
+        target: process.env.API_SERVER,
         changeOrigin: true,
         prependPath: true,
       },

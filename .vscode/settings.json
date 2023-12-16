@@ -3,7 +3,7 @@
     "./apps/server/Cargo.toml",
   ],
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true,
-    "eslint.autoFixOnSave": true,
+    "source.fixAll.eslint": "explicit",
+    "eslint.autoFixOnSave": "explicit"
   },
 }

@@ -51,7 +51,10 @@ async fn main() -> Result<(), Error> {
         .merge(RapiDoc::new("/api-docs/openapi.json").path("/rapidoc"))
         .nest("/api", v1::v1());
 
-    let address = SocketAddr::from((Ipv4Addr::UNSPECIFIED, 8080));
+    let address = SocketAddr::from((
+        Ipv4Addr::UNSPECIFIED,
+        dotenv::var("API_PORT").unwrap().parse::<u16>().unwrap(),
+    ));
     let listener = TcpListener::bind(&address).await?;
     axum::serve(listener, app.into_make_service()).await
 }
