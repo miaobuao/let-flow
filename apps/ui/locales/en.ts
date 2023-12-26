@@ -40,5 +40,19 @@ const en: LocalePack = {
       handle: "Hmm, Truly Sad, Isn't It?",
     },
   },
+  common: {
+    login: 'Login',
+    logout: 'Logout',
+    register: 'Register',
+    password: 'Password',
+    username: 'Username',
+    email: 'Email',
+  },
+  login: {
+    form: {
+      retype_password: 'Retype Password',
+      retype_password_error: 'Retype Password Error',
+    },
+  },
 };
 export default en;

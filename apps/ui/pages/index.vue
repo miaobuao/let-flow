@@ -25,6 +25,10 @@ import type { DropdownOption } from 'naive-ui';
 
 import { SettingsOutline } from '@vicons/ionicons5';
 
+definePageMeta({
+  middleware: ['auth'],
+});
+
 const options: DropdownOption[] = [];
 </script>
 

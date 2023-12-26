@@ -12,4 +12,19 @@ export type LocalePack = {
     info: ResultPageFields;
     warning: ResultPageFields;
   };
+  common: {
+    login: string;
+    logout: string;
+    register: string;
+    password: string;
+    username: string;
+    email: string;
+  };
+  login: {
+    form: {
+      retype_password: string;
+      retype_password_error: string;
+    };
+    error: {};
+  };
 };

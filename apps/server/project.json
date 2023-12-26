@@ -12,6 +12,7 @@
       "options": {
         "target-dir": "dist/target/server"
       },
+      "defaultConfiguration": "production",
       "configurations": {
         "production": {
           "release": true
@@ -43,6 +44,7 @@
     },
     "dev": {
       "executor": "@monodon/rust:run",
+      "defaultConfiguration": "development",
       "outputs": [
         "{options.target-dir}"
       ],

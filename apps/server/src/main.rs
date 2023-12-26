@@ -1,7 +1,8 @@
 use std::net::{Ipv4Addr, SocketAddr};
 
 use axum::Router;
-use dotenv;
+use mongodb::{options::ClientOptions, Client};
+use server::SharedState;
 use std::io::Error;
 use tokio::net::TcpListener;
 use utoipa::{
@@ -17,17 +18,38 @@ mod v1;
 #[tokio::main]
 async fn main() -> Result<(), Error> {
     dotenv::dotenv().ok();
+    logger_init();
+
+    let mut client_options = ClientOptions::parse(
+        dotenv::var("DATABASE_URL").unwrap_or("mongodb://localhost:27017".to_string()),
+    )
+    .await
+    .unwrap();
+    client_options.app_name =
+        Some(dotenv::var("BACKEND_NAME").unwrap_or("let-flow-server".to_owned()));
+    let shared_state = SharedState {
+        db: Client::with_options(client_options).unwrap().database(
+            dotenv::var("DATABASE_NAME")
+                .expect("need env: `DATABASE_NAME`")
+                .as_str(),
+        ),
+    };
+
     #[derive(OpenApi)]
     #[openapi(
         paths(
-            v1::user::get,
+          // session
+          v1::session::login,
+          v1::session::logout,
+          v1::user::create
         ),
         components(
-            schemas(v1::user::Msg),
+          schemas(v1::session::LoginResponse),
+          schemas(v1::user::UserCreateRequest),
+          schemas(v1::user::UserCreateResponse)
         ),
         modifiers(&SecurityAddon),
-        tags(
-        )
+        tags()
     )]
     struct ApiDoc;
     struct SecurityAddon;
@@ -49,15 +71,35 @@ async fn main() -> Result<(), Error> {
         .merge(SwaggerUi::new("/swagger-ui").url("/api-docs/openapi.json", ApiDoc::openapi()))
         .merge(Redoc::with_url("/redoc", ApiDoc::openapi()))
         .merge(RapiDoc::new("/api-docs/openapi.json").path("/rapidoc"))
-        .nest("/api", v1::v1());
+        .nest("/api", v1::v1())
+        .with_state(shared_state);
 
     let address = SocketAddr::from((
         Ipv4Addr::UNSPECIFIED,
         dotenv::var("API_PORT")
-            .unwrap()
+            .unwrap_or("8080".to_owned())
             .parse::<u16>()
-            .unwrap_or(8080),
+            .unwrap(),
     ));
+
+    log::info!("⭐ listening on http://{}", address);
+    log::info!("⭐ OpenApi on http://{}/api-docs/openapi.json", address);
+    log::info!("⭐ Redoc on http://{}/redoc", address);
+    log::info!("⭐ Rapidoc on http://{}/rapidoc", address);
+    log::info!("⭐ Swagger on http://{}/swagger-ui", address);
+
     let listener = TcpListener::bind(&address).await?;
     axum::serve(listener, app.into_make_service()).await
+}
+
+#[cfg(debug_assertions)]
+fn logger_init() {
+    use env_logger::Env;
+    env_logger::Builder::from_env(Env::default().filter_or("LOG_LEVEL", "debug")).init();
+}
+
+#[cfg(not(debug_assertions))]
+fn logger_init() {
+    use env_logger::Env;
+    env_logger::Builder::from_env(Env::default().filter_or("LOG_LEVEL", "info")).init();
 }

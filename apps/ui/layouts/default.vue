@@ -48,6 +48,14 @@ const lang = computed<UserLanguage | undefined>(() => {
   }
 });
 
+const { setLocale, defaultLocale } = useI18n();
+watch(
+  () => guiPreferences.value.language,
+  (value) => {
+    setLocale(value ?? defaultLocale.code ?? LanguageKind.en);
+  }
+);
+
 const guiPreferencesStorage = useStorageAsync(
   'gui-preferences',
   guiPreferences.value

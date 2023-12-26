@@ -6,4 +6,16 @@
     "source.fixAll.eslint": "explicit",
     "eslint.autoFixOnSave": "explicit"
   },
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "pg-docker",
+      "database": "postgres",
+      "username": "postgres",
+      "password": "postgres"
+    }
+  ],
 }

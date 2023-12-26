@@ -38,5 +38,20 @@ const zh: LocalePack = {
       handle: '听起来有那么点悲伤，哈哈哈',
     },
   },
+  common: {
+    login: '登录',
+    logout: '登出',
+    register: '注册',
+    password: '密码',
+    username: '用户名',
+    email: '邮箱',
+  },
+  login: {
+    form: {
+      retype_password: '重复密码',
+      retype_password_error: '重复密码错误',
+    },
+    error: {},
+  },
 };
 export default zh;
