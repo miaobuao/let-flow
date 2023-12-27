@@ -1,0 +1,11 @@
+{
+  "name": "@let-flow/api",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "dev": "./generate.js"
+  },
+  "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.7.0"
+  }
+}
