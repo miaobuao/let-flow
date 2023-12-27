@@ -5,6 +5,9 @@ use tower_http::auth::AsyncRequireAuthorizationLayer;
 pub mod session;
 pub mod user;
 
+use session::session as Session;
+use user::user as User;
+
 pub fn v1() -> Router<SharedState> {
     let jwt_layer = AsyncRequireAuthorizationLayer::new(JwtAuthentication::new(
         dotenv::var("JWT_SECRET").expect("need env: `JWT_SECRET`"),
@@ -14,11 +17,11 @@ pub fn v1() -> Router<SharedState> {
         Router::new()
             .route(
                 "/session",
-                routing::post(session::login).delete(session::logout),
+                routing::post(Session::login).delete(Session::logout),
             )
             .route(
                 "/user",
-                routing::post(user::create), // .layer(jwt_layer.to_owned()),
+                routing::post(User::create), // .layer(jwt_layer.to_owned()),
             ),
     )
 }

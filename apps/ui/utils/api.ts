@@ -1,4 +1,4 @@
-import { Configuration, DefaultApi, UserApi } from '@let-flow/api';
+import { Configuration } from '@let-flow/api';
 
 const config = new Configuration({
   basePath: '',

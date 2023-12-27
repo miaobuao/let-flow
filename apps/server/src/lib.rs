@@ -4,9 +4,20 @@ use hyper::{header, StatusCode};
 use mongodb;
 use tower_http::auth::AsyncAuthorizeRequest;
 
+pub mod db;
+
 #[derive(Debug, Clone)]
 pub struct SharedState {
-    pub db: mongodb::Database,
+    pub collection: db::collection::Collections,
+}
+
+impl SharedState {
+    pub fn new(db: mongodb::Database) -> Self {
+        Self {
+            collection: db::collection::Collections::new(db),
+        }
+    }
+    // pub fn get_user
 }
 
 #[derive(Clone, Debug)]

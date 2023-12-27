@@ -12,7 +12,6 @@ use utoipa::{
 use utoipa_rapidoc::RapiDoc;
 use utoipa_redoc::{Redoc, Servable};
 use utoipa_swagger_ui::SwaggerUi;
-
 mod v1;
 
 #[tokio::main]
@@ -27,31 +26,14 @@ async fn main() -> Result<(), Error> {
     .unwrap();
     client_options.app_name =
         Some(dotenv::var("BACKEND_NAME").unwrap_or("let-flow-server".to_owned()));
-    let shared_state = SharedState {
-        db: Client::with_options(client_options).unwrap().database(
+    let shared_state = SharedState::new(
+        Client::with_options(client_options).unwrap().database(
             dotenv::var("DATABASE_NAME")
                 .expect("need env: `DATABASE_NAME`")
                 .as_str(),
         ),
-    };
+    );
 
-    #[derive(OpenApi)]
-    #[openapi(
-        paths(
-          // session
-          v1::session::login,
-          v1::session::logout,
-          v1::user::create
-        ),
-        components(
-          schemas(v1::session::LoginResponse),
-          schemas(v1::user::UserCreateRequest),
-          schemas(v1::user::UserCreateResponse)
-        ),
-        modifiers(&SecurityAddon),
-        tags()
-    )]
-    struct ApiDoc;
     struct SecurityAddon;
 
     impl Modify for SecurityAddon {
@@ -66,6 +48,25 @@ async fn main() -> Result<(), Error> {
             }
         }
     }
+
+    #[derive(OpenApi)]
+    #[openapi(
+        modifiers(&SecurityAddon),
+        paths(
+          v1::session::session::login,
+          v1::session::session::logout,
+          v1::user::user::create
+        ),
+        components(
+          schemas(v1::session::schema::LoginRequest),
+          schemas(v1::session::schema::LoginResponse),
+          schemas(v1::user::schema::UserCreateRequest),
+          schemas(v1::user::schema::UserCreateResponse),
+        ),
+        modifiers(&SecurityAddon),
+        tags()
+    )]
+    struct ApiDoc;
 
     let app = Router::new()
         .merge(SwaggerUi::new("/swagger-ui").url("/api-docs/openapi.json", ApiDoc::openapi()))

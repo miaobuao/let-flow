@@ -32,6 +32,9 @@
             :model="registerFormValue"
             :rules="registerFormRules"
           >
+            <n-form-item-row :label="$t('common.username')" path="name">
+              <n-input v-model:value="registerFormValue.name" />
+            </n-form-item-row>
             <n-form-item-row :label="$t('common.email')" path="email">
               <n-input v-model:value="registerFormValue.email" />
             </n-form-item-row>
@@ -86,6 +89,7 @@ function onLogin() {}
 const registerFormRef = ref<FormInst>();
 const registerFormValue = ref({
   ...loginFormValue.value,
+  name: '',
   password2: '',
 });
 const registerFormRules = {
@@ -99,6 +103,10 @@ const registerFormRules = {
       }
       return true;
     },
+  },
+  name: {
+    required: true,
+    trigger: ['blur'],
   },
 };
 

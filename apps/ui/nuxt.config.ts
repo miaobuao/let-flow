@@ -42,7 +42,7 @@ const VITE_CONFIG: NuxtConfig['vite'] = {
           process.env.API_SERVER ??
           `http://localhost:${process.env.API_PORT ?? 8080}`,
         changeOrigin: true,
-        prependPath: true,
+        // prependPath: true,
       },
     },
   },

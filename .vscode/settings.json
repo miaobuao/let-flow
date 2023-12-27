@@ -1,6 +1,7 @@
 {
   "rust-analyzer.linkedProjects": [
     "./apps/server/Cargo.toml",
+    "./apps/server/Cargo.toml"
   ],
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
