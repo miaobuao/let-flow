@@ -49,7 +49,7 @@
         "{options.target-dir}"
       ],
       "options": {
-        "target-dir": "dist/target/server"
+        "target-dir": "{projectRoot}/dist/target/server"
       },
       "configurations": {
         "production": {

@@ -6,6 +6,7 @@ authors = ["miaobuao <miaobuao@outlook.com>"]
 
 [dependencies]
 argon2 = "0.5"
+bcrypt = "0.15"
 futures = "0.3"
 axum = { version = "0.7", features = [] }
 hyper = { version = "1", features = ["full"] }
@@ -14,6 +15,7 @@ tower = "0.4"
 tower-http = { version = "0.5", features = ["full"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+validator = { version = "0.16", features = ["derive"] }
 env_logger = "0.10"
 log = "0.4"
 utoipa = { version = "4", features = ["axum_extras"] }

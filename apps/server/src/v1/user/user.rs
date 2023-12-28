@@ -1,35 +1,53 @@
 use axum::{extract::State, Json};
+use bcrypt;
 use hyper::StatusCode;
-use mongodb::bson::doc;
+use mongodb::{
+    bson::{doc, oid::ObjectId},
+    options::FindOneOptions,
+};
+use serde::{Deserialize, Serialize};
 use std::borrow::Borrow;
 
 use super::schema::{UserCreateRequest, UserCreateResponse};
-use server::{db::schema::User, SharedState};
+use server::SharedState;
+
+#[derive(Serialize, Deserialize, Clone)]
+pub struct UserId {
+    #[serde(rename = "_id")]
+    id: ObjectId,
+}
 
 #[utoipa::path(
   post,
   path = "/v1/user",
   responses(
-      (status = 200, description = "create user", body = UserCreateRequest)
+      (status = 200, description = "create user", body = UserCreateRequest),
+      (status = 409, description = "Email already exist"),
+      (status = 500, description = "Internal server error"),
   ),
   tag = "User",
 )]
 pub async fn create(
     State(shared_state): State<SharedState>,
-    Json(payload): Json<UserCreateRequest>,
+    Json(mut payload): Json<UserCreateRequest>,
 ) -> Result<Json<UserCreateResponse>, (StatusCode, String)> {
-    let source: Option<User> = shared_state
+    let source: Option<UserId> = shared_state
         .collection
         .get_user_collection()
         .find_one(
             doc! {"email": payload.email.to_owned()},
-            None, // FindOneOptions::builder().projection(doc! {"id": 1}).build(),
+            FindOneOptions::builder()
+                .projection(doc! {"_id": 1})
+                .build(),
         )
         .await
         .unwrap();
     if let Some(_) = source {
         return Err((StatusCode::CONFLICT, "error.email_already_exist".to_owned()));
     }
+
+    payload.password = bcrypt::hash(payload.password, 12).unwrap();
+
     let inserted = shared_state
         .collection
         .get_user_collection::<UserCreateRequest>()

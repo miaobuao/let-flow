@@ -10,7 +10,6 @@ use utoipa::{
     Modify, OpenApi,
 };
 use utoipa_rapidoc::RapiDoc;
-use utoipa_redoc::{Redoc, Servable};
 use utoipa_swagger_ui::SwaggerUi;
 mod v1;
 
@@ -70,7 +69,6 @@ async fn main() -> Result<(), Error> {
 
     let app = Router::new()
         .merge(SwaggerUi::new("/swagger-ui").url("/api-docs/openapi.json", ApiDoc::openapi()))
-        .merge(Redoc::with_url("/redoc", ApiDoc::openapi()))
         .merge(RapiDoc::new("/api-docs/openapi.json").path("/rapidoc"))
         .nest("/api", v1::v1())
         .with_state(shared_state);
@@ -82,12 +80,15 @@ async fn main() -> Result<(), Error> {
             .parse::<u16>()
             .unwrap(),
     ));
+    if let Ok(output_path) = dotenv::var("OPENAPI_OUTPUT") {
+        let doc = ApiDoc::openapi().to_json().unwrap();
+        std::fs::write(output_path, doc).unwrap();
+    }
 
     log::info!("⭐ listening on http://{}", address);
-    log::info!("⭐ OpenApi on http://{}/api-docs/openapi.json", address);
-    log::info!("⭐ Redoc on http://{}/redoc", address);
-    log::info!("⭐ Rapidoc on http://{}/rapidoc", address);
     log::info!("⭐ Swagger on http://{}/swagger-ui", address);
+    log::info!("⭐ OpenApi on http://{}/api-docs/openapi.json", address);
+    log::info!("⭐ Rapidoc on http://{}/rapidoc", address);
 
     let listener = TcpListener::bind(&address).await?;
     axum::serve(listener, app.into_make_service()).await
