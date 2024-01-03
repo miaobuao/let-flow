@@ -36,13 +36,14 @@ const VITE_CONFIG: NuxtConfig['vite'] = {
         : [],
   },
   server: {
+    strictPort: true,
     proxy: {
       '/api': {
         target:
           process.env.API_SERVER ??
           `http://localhost:${process.env.API_PORT ?? 8080}`,
         changeOrigin: true,
-        // prependPath: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
@@ -89,7 +90,7 @@ export default defineNuxtConfig({
   vite: VITE_CONFIG,
   modules: MODULES_CONFIG,
   devtools: { enabled: true },
-  ssr: true,
+  ssr: false,
   build: {
     transpile:
       process.env.NODE_ENV === 'production'

@@ -13,7 +13,7 @@ use server::SharedState;
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserId {
-    #[serde(rename = "_id")]
+    #[serde(rename(deserialize = "_id", serialize = "id"))]
     id: ObjectId,
 }
 
@@ -21,7 +21,7 @@ pub struct UserId {
   post,
   path = "/v1/user",
   responses(
-      (status = 200, description = "create user", body = UserCreateRequest),
+      (status = 200, description = "user register", body = UserCreateResponse),
       (status = 409, description = "Email already exist"),
       (status = 500, description = "Internal server error"),
   ),

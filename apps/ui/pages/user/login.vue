@@ -1,11 +1,7 @@
 <template>
   <div class="hfull flex flex-col justify-center">
     <n-card class="w-[90%] max-w-[400px] my-0 mx-auto">
-      <n-tabs
-        default-value="signin"
-        size="large"
-        justify-content="space-evenly"
-      >
+      <n-tabs v-model:value="tab" size="large" justify-content="space-evenly">
         <n-tab-pane name="signin" :tab="$t('common.login')">
           <n-form
             ref="loginFormRef"
@@ -66,9 +62,13 @@
 <script setup lang="ts">
 import type { FormInst, FormItemRule } from 'naive-ui';
 
-import axios from 'axios';
-
 const { t } = useI18n();
+enum Tabs {
+  SIGNIN = 'signin',
+  SIGNUP = 'signup',
+}
+const tab = ref(Tabs.SIGNIN);
+
 const loginFormRef = ref<FormInst>();
 const loginFormValue = ref({
   email: '',
@@ -84,7 +84,13 @@ const loginFormRules = {
     trigger: ['blur'],
   },
 };
-function onLogin() {}
+function onLogin() {
+  loginFormRef.value?.validate((errors) => {
+    if (!errors) {
+      sessionApi.create(loginFormValue.value).catch(errorHandler);
+    }
+  });
+}
 
 const registerFormRef = ref<FormInst>();
 const registerFormValue = ref({
@@ -113,14 +119,13 @@ const registerFormRules = {
 function onRegister() {
   registerFormRef.value?.validate((errors) => {
     if (!errors) {
-      axios
-        .post('/api/v1/user', registerFormValue.value)
-        .then((res) => {
-          return res;
+      userApi
+        .create(registerFormValue.value)
+        .then(({ data }) => {
+          tab.value = Tabs.SIGNIN;
+          return data;
         })
-        .catch((err) => {
-          console.log(err);
-        });
+        .catch(errorHandler);
     }
   });
 }

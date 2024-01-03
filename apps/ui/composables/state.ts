@@ -1,21 +1,48 @@
-import { type NLocale, type NDateLocale } from 'naive-ui';
+import { useStorage } from '@vueuse/core';
+import {
+  type NLocale,
+  type NDateLocale,
+  useOsTheme,
+  darkTheme,
+  lightTheme,
+  enUS,
+  dateEnUS,
+  zhCN,
+  dateZhCN,
+} from 'naive-ui';
 
-export const useGuiPreferences = () => {
-  return useState<GuiPreferences>('gui-preferences', () => ({
-    theme: ThemeKind.Dark,
+export const useGuiPreferences = defineStore('gui-preferences', () => {
+  const preferences = useStorage<GuiPreferences>('gui-preferences', {
+    theme: ThemeKind.OS,
     language: LanguageKind.en,
-  }));
-};
+  });
+  const osThemeRef = useOsTheme();
 
-// export const useGuiPreferences = defineStore('gui-preferences', () => {
-//   const preferences = useStorage<GuiPreferences>('gui-preferences', {
-//     theme: isClient ? ThemeKind.OS : ThemeKind.Light,
-//     language: LanguageKind.en,
-//   });
-//   const osThemeRef = useOsTheme();
+  const theme = computed(() => {
+    if (preferences.value.theme === ThemeKind.OS) {
+      return osThemeRef.value === ThemeKind.Dark ? darkTheme : lightTheme;
+    } else if (preferences.value.theme === ThemeKind.Dark) {
+      return darkTheme;
+    } else {
+      return lightTheme;
+    }
+  });
 
-//   return { preferences, theme, lang };
-// });
+  const lang = computed<UserLanguage | undefined>(() => {
+    if (preferences.value.language === LanguageKind.zh) {
+      return {
+        locale: zhCN,
+        date: dateZhCN,
+      };
+    } else if (preferences.value.language === LanguageKind.en) {
+      return {
+        locale: enUS,
+        date: dateEnUS,
+      };
+    }
+  });
+  return { preferences, theme, lang };
+});
 
 export interface GuiPreferences {
   theme?: ThemeKind;

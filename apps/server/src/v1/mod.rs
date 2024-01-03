@@ -1,5 +1,5 @@
-use axum::{routing, Router};
-use server::{JwtAuthentication, SharedState};
+use axum::{routing::post, Router};
+use server::{jwt::JwtAuthentication, SharedState};
 use tower_http::auth::AsyncRequireAuthorizationLayer;
 
 pub mod session;
@@ -15,13 +15,10 @@ pub fn v1() -> Router<SharedState> {
     Router::new().nest(
         "/v1",
         Router::new()
-            .route(
-                "/session",
-                routing::post(Session::login).delete(Session::logout),
-            )
+            .route("/session", post(Session::create).delete(Session::delete))
             .route(
                 "/user",
-                routing::post(User::create), // .layer(jwt_layer.to_owned()),
+                post(User::create), // .layer(jwt_layer.to_owned()),
             ),
     )
 }

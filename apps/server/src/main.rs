@@ -52,9 +52,9 @@ async fn main() -> Result<(), Error> {
     #[openapi(
         modifiers(&SecurityAddon),
         paths(
-          v1::session::session::login,
-          v1::session::session::logout,
-          v1::user::user::create
+          v1::session::session::create,
+          v1::session::session::delete,
+          v1::user::user::create,
         ),
         components(
           schemas(v1::session::schema::LoginRequest),
@@ -70,7 +70,10 @@ async fn main() -> Result<(), Error> {
     let app = Router::new()
         .merge(SwaggerUi::new("/swagger-ui").url("/api-docs/openapi.json", ApiDoc::openapi()))
         .merge(RapiDoc::new("/api-docs/openapi.json").path("/rapidoc"))
-        .nest("/api", v1::v1())
+        .nest(
+            dotenv::var("API_PREFIX").unwrap_or("/".to_owned()).as_str(),
+            v1::v1(),
+        )
         .with_state(shared_state);
 
     let address = SocketAddr::from((
@@ -80,15 +83,16 @@ async fn main() -> Result<(), Error> {
             .parse::<u16>()
             .unwrap(),
     ));
+
+    log::info!("⭐ listening on http://{}", address);
+    log::info!("⭐ Swagger on http://localhost:8080/swagger-ui");
+    log::info!("⭐ OpenApi on http://localhost:8080/api-docs/openapi.json");
+    log::info!("⭐ Rapidoc on http://localhost:8080/rapidoc");
+
     if let Ok(output_path) = dotenv::var("OPENAPI_OUTPUT") {
         let doc = ApiDoc::openapi().to_json().unwrap();
         std::fs::write(output_path, doc).unwrap();
     }
-
-    log::info!("⭐ listening on http://{}", address);
-    log::info!("⭐ Swagger on http://{}/swagger-ui", address);
-    log::info!("⭐ OpenApi on http://{}/api-docs/openapi.json", address);
-    log::info!("⭐ Rapidoc on http://{}/rapidoc", address);
 
     let listener = TcpListener::bind(&address).await?;
     axum::serve(listener, app.into_make_service()).await

@@ -6,7 +6,7 @@ use validator::Validate;
 #[derive(Serialize, Deserialize, ToSchema, Validate, Clone)]
 pub struct UserCreateRequest {
     pub name: String,
-    #[validate(email(message = "error.invalid_email"))]
+    #[validate(email)]
     pub email: String,
     pub password: String,
 }

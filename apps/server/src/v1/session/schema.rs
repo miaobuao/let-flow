@@ -3,7 +3,7 @@ use utoipa::ToSchema;
 
 #[derive(Serialize, Deserialize, ToSchema, Clone)]
 pub struct LoginResponse {
-    #[serde(rename = "_id")]
+    #[serde(rename(deserialize = "_id", serialize = "id"))]
     pub id: String,
     pub name: String,
     pub email: String,
