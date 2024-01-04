@@ -1,0 +1,5 @@
+pymongo
+redis
+psycopg2-binary
+json5
+pydantic

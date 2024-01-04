@@ -1,3 +1,22 @@
 {
-    "editor.formatOnSave": true
+  "rust-analyzer.linkedProjects": [
+    "./apps/server/Cargo.toml",
+    "./apps/server/Cargo.toml"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "eslint.autoFixOnSave": "explicit"
+  },
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "server": "localhost",
+      "port": 5432,
+      "driver": "PostgreSQL",
+      "name": "pg-docker",
+      "database": "postgres",
+      "username": "postgres",
+      "password": "postgres"
+    }
+  ],
 }

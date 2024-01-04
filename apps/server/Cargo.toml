@@ -1,0 +1,36 @@
+[package]
+name = "server"
+version = "0.1.0"
+edition = "2021"
+authors = ["miaobuao <miaobuao@outlook.com>"]
+
+[dependencies]
+jsonwebtoken = "9"
+bcrypt = "0.15"
+chrono = { version = "0.4", features = ["serde"] }
+futures = "0.3"
+time = "0.3"
+axum = { version = "0.7", features = [] }
+hyper = { version = "1", features = ["full"] }
+tokio = { version = "1", features = ["full"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+validator = { version = "0.16", features = ["derive"] }
+env_logger = "0.10"
+log = "0.4"
+utoipa = { version = "4", features = ["axum_extras"] }
+utoipa-swagger-ui = { version = "5", features = ["axum"] }
+utoipa-redoc = { version = "2", features = ["axum"] }
+utoipa-rapidoc = { version = "2", features = ["axum"] }
+dotenv = "0.15"
+
+[dependencies.mongodb]
+version = "2"
+default-features = false
+features = ["async-std-runtime"]
+
+[dependencies.axum-extra]
+version = "0.9"
+features = ["cookie"]

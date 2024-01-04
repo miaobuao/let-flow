@@ -36,5 +36,6 @@
       "!{projectRoot}/eslint.config.js"
     ],
     "sharedGlobals": []
-  }
+  },
+  "plugins": ["@monodon/rust"]
 }

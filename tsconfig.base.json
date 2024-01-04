@@ -15,8 +15,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@let-flow/airflow": ["packages/@let-flow/airflow/index.ts"],
-      "@let-flow/microflow": ["packages/@let-flow/microflow/src/index.ts"]
+      "@let-flow/api": ["packages/@let-flow/api/index.ts"],
+      "@let-flow/common-module": [
+        "packages/@let-flow/common-module/src/index.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]
