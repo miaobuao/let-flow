@@ -15,7 +15,7 @@ pub fn v1() -> Router<SharedState> {
     Router::new().nest(
         "/v1",
         Router::new()
-            .route("/session", post(Session::create).delete(Session::delete))
+            .route("/session", post(Session::create).delete(Session::destroy))
             .route(
                 "/user",
                 post(User::create), // .layer(jwt_layer.to_owned()),

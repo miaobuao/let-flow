@@ -43,7 +43,10 @@ pub async fn create(
         .await
         .unwrap();
     if let Some(_) = source {
-        return Err((StatusCode::CONFLICT, "error.email_already_exist".to_owned()));
+        return Err((
+            StatusCode::CONFLICT,
+            "backend.error.email_already_exist".to_owned(),
+        ));
     }
 
     payload.password = bcrypt::hash(payload.password, 12).unwrap();
@@ -63,7 +66,7 @@ pub async fn create(
     } else {
         Err((
             StatusCode::INTERNAL_SERVER_ERROR,
-            "error.internal_server_error".to_owned(),
+            "backend.error.internal_server_error".to_owned(),
         ))
     }
 }

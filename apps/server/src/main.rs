@@ -53,7 +53,7 @@ async fn main() -> Result<(), Error> {
         modifiers(&SecurityAddon),
         paths(
           v1::session::session::create,
-          v1::session::session::delete,
+          v1::session::session::destroy,
           v1::user::user::create,
         ),
         components(

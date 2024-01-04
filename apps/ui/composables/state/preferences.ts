@@ -11,7 +11,7 @@ import {
   dateZhCN,
 } from 'naive-ui';
 
-export const useGuiPreferences = defineStore('gui-preferences', () => {
+export const useGuiPreferencesStore = defineStore('gui-preferences', () => {
   const preferences = useStorage<GuiPreferences>('gui-preferences', {
     theme: ThemeKind.OS,
     language: LanguageKind.en,

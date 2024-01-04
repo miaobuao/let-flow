@@ -45,13 +45,31 @@ const zh: LocalePack = {
     password: '密码',
     username: '用户名',
     email: '邮箱',
+    ok: '确定',
+    cancel: '取消',
   },
   login: {
     form: {
       retype_password: '重复密码',
       retype_password_error: '重复密码错误',
     },
+    message: {
+      login_success: '登录成功',
+      whether_keep_logged_in: '是否保持登录',
+    },
     error: {},
+  },
+  backend: {
+    error: {
+      internal_server_error: '内部服务器错误',
+      invalid_email_or_password: '无效的邮箱或密码',
+      email_already_exist: '邮箱已存在',
+    },
+  },
+  session: {
+    error: {
+      expired: '会话已过期',
+    },
   },
 };
 export default zh;

@@ -47,11 +47,30 @@ const en: LocalePack = {
     password: 'Password',
     username: 'Username',
     email: 'Email',
+    ok: 'OK',
+    cancel: 'Cancel',
   },
   login: {
     form: {
       retype_password: 'Retype Password',
       retype_password_error: 'Retype Password Error',
+    },
+    message: {
+      login_success: 'Login Success',
+      whether_keep_logged_in: 'Whether Keep Logged In',
+    },
+    error: {},
+  },
+  backend: {
+    error: {
+      internal_server_error: 'Internal Server Error',
+      invalid_email_or_password: 'Invalid Email Or Password',
+      email_already_exist: 'Email Already Exist',
+    },
+  },
+  session: {
+    error: {
+      expired: 'Session Expired',
     },
   },
 };

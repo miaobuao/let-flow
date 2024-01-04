@@ -1,3 +1,4 @@
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use utoipa::ToSchema;
 
@@ -7,6 +8,8 @@ pub struct LoginResponse {
     pub id: String,
     pub name: String,
     pub email: String,
+    pub token: String,
+    pub expires: DateTime<Utc>,
 }
 
 #[derive(Serialize, Deserialize, ToSchema, Clone)]

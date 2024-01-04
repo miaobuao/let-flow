@@ -6,11 +6,13 @@ import {
   lightTheme,
 } from 'naive-ui';
 
+import { useGuiPreferencesStore } from '~/composables/state';
+
 const { $pinia } = useNuxtApp();
 
 const configProviderPropsRef = computed<ConfigProviderProps>(() => {
   try {
-    const preferences = useGuiPreferences($pinia);
+    const preferences = useGuiPreferencesStore($pinia);
     return {
       theme: preferences.theme,
     };

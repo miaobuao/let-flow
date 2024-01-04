@@ -19,12 +19,30 @@ export type LocalePack = {
     password: string;
     username: string;
     email: string;
+    ok: string;
+    cancel: string;
   };
   login: {
     form: {
       retype_password: string;
       retype_password_error: string;
     };
+    message: {
+      login_success: string;
+      whether_keep_logged_in: string;
+    };
     error: {};
+  };
+  backend: {
+    error: {
+      email_already_exist: string;
+      invalid_email_or_password: string;
+      internal_server_error: string;
+    };
+  };
+  session: {
+    error: {
+      expired: string;
+    };
   };
 };

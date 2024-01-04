@@ -1,10 +1,10 @@
 import { Configuration, SessionApi, UserApi } from '@let-flow/api';
 
-const config = new Configuration({
+const apiConfig = new Configuration({
   basePath: '/api',
 });
 
-const sessionApi = new SessionApi(config);
-const userApi = new UserApi(config);
+const sessionApi = new SessionApi(apiConfig);
+const userApi = new UserApi(apiConfig);
 
-export { sessionApi, userApi };
+export { sessionApi, userApi, apiConfig };

@@ -11,5 +11,7 @@
 </template>
 
 <script setup lang="ts">
-const preferences = useGuiPreferences();
+import { useGuiPreferencesStore } from '~/composables/state';
+
+const preferences = useGuiPreferencesStore();
 </script>

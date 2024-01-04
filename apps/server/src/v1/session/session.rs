@@ -1,3 +1,5 @@
+use std::borrow::Borrow;
+
 use super::schema::{LoginRequest, LoginResponse};
 use axum::{
     extract::{Request, State},
@@ -65,31 +67,23 @@ pub async fn create(
         .unwrap();
     if let Some(source) = basic_info {
         if let Ok(_) = bcrypt::verify(payload.password, &source.password) {
-            let mut header = HeaderMap::new();
+            let expires = chrono::Utc::now() + chrono::Duration::days(30);
             let token = shared_state.jwt.generate(&server::jwt::JwtToken {
                 id: String::from(source.id.to_hex()),
-                exp: chrono::Utc::now() + chrono::Duration::days(30),
+                exp: expires.clone(),
             });
-            let cookie = Cookie::build(("token", token))
-                .http_only(true)
-                .expires(cookie::Expiration::DateTime(
-                    time::OffsetDateTime::now_utc() + time::Duration::days(30),
-                ))
-                .same_site(SameSite::None);
-            header.insert(SET_COOKIE, cookie.to_string().parse().unwrap());
-            return Ok((
-                header,
-                Json(LoginResponse {
-                    id: source.id.to_hex(),
-                    name: source.name,
-                    email: source.email,
-                }),
-            ));
+            return Ok((Json(LoginResponse {
+                id: source.id.to_hex(),
+                name: source.name,
+                email: source.email,
+                token,
+                expires,
+            }),));
         }
     }
     return Err((
         StatusCode::UNAUTHORIZED,
-        "error.invalid_email_or_password".to_owned(),
+        "backend.error.invalid_email_or_password".to_owned(),
     ));
 }
 
@@ -101,7 +95,7 @@ pub async fn create(
       (status = 200)
   )
 )]
-pub async fn delete(cookies: CookieJar) -> impl IntoResponse {
+pub async fn destroy(cookies: CookieJar) -> impl IntoResponse {
     let mut result_cookies = CookieJar::new();
     for cookie in cookies.iter() {
         let mut cookie = cookie.clone();

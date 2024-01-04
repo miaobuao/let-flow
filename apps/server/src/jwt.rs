@@ -57,13 +57,15 @@ where
     fn authorize(&mut self, request: Request<B>) -> Self::Future {
         let decrypt_key = self.decrypt_key.clone();
         Box::pin(async move {
-            if let Some(Ok(token)) = request.headers().get(header::COOKIE).and_then(|it| {
-                Cookie::split_parse(it.to_str().unwrap())
-                    .find(|it| it.as_ref().unwrap().name() == "token")
-            }) {
-                if let Ok(_) =
-                    jwt::decode::<JwtToken>(token.value(), &decrypt_key, &Validation::default())
+            if let Some(token) = request
+                .headers()
+                .get(header::AUTHORIZATION)
+                .and_then(|it| it.to_str().ok())
+                .and_then(|it| it.strip_prefix("Bearer "))
+            {
+                if let Ok(_) = jwt::decode::<JwtToken>(token, &decrypt_key, &Validation::default())
                 {
+                    // TODO: insert user info
                     return Ok(request);
                 }
             }

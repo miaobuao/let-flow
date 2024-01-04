@@ -62,6 +62,12 @@
 <script setup lang="ts">
 import type { FormInst, FormItemRule } from 'naive-ui';
 
+import { useDialog } from 'naive-ui';
+
+import { useSessionStore } from '~/composables/state';
+
+const session = useSessionStore();
+const dialog = useDialog();
 const { t } = useI18n();
 enum Tabs {
   SIGNIN = 'signin',
@@ -86,9 +92,28 @@ const loginFormRules = {
 };
 function onLogin() {
   loginFormRef.value?.validate((errors) => {
-    if (!errors) {
-      sessionApi.create(loginFormValue.value).catch(errorHandler);
+    if (errors) {
+      return;
     }
+    session
+      .login(loginFormValue.value)
+      .then((data) => {
+        dialog.success({
+          title: t('login.message.login_success'),
+          content: t('login.message.whether_keep_logged_in'),
+          negativeText: t('common.cancel'),
+          positiveText: t('common.ok'),
+          onPositiveClick() {
+            session.save();
+          },
+          onNegativeClick() {},
+          onAfterLeave() {
+            navigateTo('/');
+          },
+        });
+        return data;
+      })
+      .catch(errorHandler);
   });
 }
 
@@ -118,15 +143,16 @@ const registerFormRules = {
 
 function onRegister() {
   registerFormRef.value?.validate((errors) => {
-    if (!errors) {
-      userApi
-        .create(registerFormValue.value)
-        .then(({ data }) => {
-          tab.value = Tabs.SIGNIN;
-          return data;
-        })
-        .catch(errorHandler);
+    if (errors) {
+      return;
     }
+    userApi
+      .create(registerFormValue.value)
+      .then(({ data }) => {
+        tab.value = Tabs.SIGNIN;
+        return data;
+      })
+      .catch(errorHandler);
   });
 }
 </script>
